@@ -1,4 +1,4 @@
 # Ramen Design Patterns
 
-## [Creational patterns](creational)
+## [Creational patterns](patterns/creational)
 
