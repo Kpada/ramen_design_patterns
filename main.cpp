@@ -2,6 +2,7 @@
 #include <iostream>
 #include <memory>
 #include <exception>
+#include <vector>
 
 #include "patterns/iPattern.h"
 #include "patterns/creational/factory_method/factoryMethod.h"
@@ -12,9 +13,17 @@
 
 
 static void execute() {
-    /* Exetuce the concrete pattern */
-    std::unique_ptr<IPattern> pattern = std::make_unique<Prototype::Pattern>();
-    pattern->Execute();
+    std::vector<std::unique_ptr<IPattern>> patterns;
+
+    patterns.push_back(std::make_unique<FactoryMethod::Pattern>());
+    patterns.push_back(std::make_unique<AbtractFactory::Pattern>());
+    patterns.push_back(std::make_unique<Builder::Pattern>());
+    patterns.push_back(std::make_unique<Prototype::Pattern>());
+    patterns.push_back(std::make_unique<Singleton::Pattern>());
+
+    for (const auto& item : patterns) {
+        item->Execute();
+    }
 }
 
 int main() {
