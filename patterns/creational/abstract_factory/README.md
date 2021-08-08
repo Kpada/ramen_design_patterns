@@ -13,7 +13,8 @@ But:
 ## Output
 
 ```
-It's dinner time. I'm so hungry. I don't know what exactly I want to eat. I'm just going to visit a restaurant and order their best meal.
+It's dinner time. I'm so hungry.I don't know what exactly I want to eat.
+I'm just going to visit a restaurant and order their best meal.
 
 It seems I'm visiting a Ramen restaurant today.
 
@@ -23,4 +24,5 @@ I'm eating Ramen
 I'm drinking beer :)
 
 [Me] It was very tasty. Thanks.
+
 ```

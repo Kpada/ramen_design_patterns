@@ -14,11 +14,12 @@ public:
     virtual ~IPattern() {};
 
     void Execute() {
-        std::cout << " + + + + Start " << patternName << std::endl << std::endl;
+        std::cout << "#### " << patternName << std::endl << std::endl;
+        std::cout << "```" << std::endl;
 
         BusinessLogic();
 
-        std::cout << std::endl << " + + + + Finish " << patternName << std::endl;
+        std::cout << std::endl << "```" <<  std::endl;
     }
 
 protected:

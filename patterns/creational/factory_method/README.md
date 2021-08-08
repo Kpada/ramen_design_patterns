@@ -13,11 +13,15 @@ But:
 ## Output
 
 ```
-It's dinner time. I'm so hungry. I don't know what exactly I want to eat. I'm just going to visit the closest restaurant and order their best meal.
+It's dinner time. I'm so hungry.I don't know what exactly I want to eat.
+I'm just going to visit the closest restaurant and order their best meal.
 
-[Me] Hello. I don't know that kind of restaurant is this. I don't know what dishes you have. So give me your best meal, please.
+[Me] Hello. I don't know that kind of restaurant is this.
+I don't know what dishes you have.
+So give me your best meal, please.
 
 This is Ramen!
 
 [Me] It was very tasty. Thanks.
+
 ```

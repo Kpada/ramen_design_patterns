@@ -14,10 +14,14 @@ But:
 ## Output
 
 ```
-It's dinner time. I'm so hungry. I'm going to visit my favorite ramen restaurant. They have so many possible options. Fortunately, I don't have to explain to the waiter what I want for each possible parameter. I can just use their menu.
+It's dinner time. I'm so hungry.I'm going to visit my favorite ramen restaurant.
+They have so many possible options.
+Fortunately, I don't need to explain to the waiter what I want for each possible parameter.
+I can just use their menu.
 
 [Me] I want to have a big tonkotsu ramen with gyoza and beer.
 
 This is my ramen:
 Type = Tonkonsu, Weight = 1000, Purgency = Hot, Beverage = Beer, Gyoza = 10, Fork = No
+
 ```

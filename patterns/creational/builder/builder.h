@@ -223,11 +223,12 @@ public:
 private:
     void BusinessLogic() final {
         std::cout <<
-            "It's dinner time. I'm so hungry. " <<
-            "I'm going to visit my favorite ramen restaurant. " <<
-            "They have so many possible options. " <<
-            "Fortunately, I don't have to explain to the waiter what I want " <<
-            "for each possible parameter. I can just use their menu." <<
+            "It's dinner time. I'm so hungry." <<
+            "I'm going to visit my favorite ramen restaurant." << std::endl <<
+            "They have so many possible options." << std::endl <<
+            "Fortunately, I don't need to explain to the waiter what I want " <<
+            "for each possible parameter." << std::endl <<
+            "I can just use their menu." <<
             std::endl;
 
         std::cout <<

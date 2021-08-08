@@ -80,11 +80,11 @@ public:
     : IFood(move(name))
     , m_weight(weight)
     , m_fork(fork) {
-        std::cout << GetName() << " created. " << GetInfo() << std::endl;
+        std::cout << GetName() << " created." << GetInfo() << std::endl;
     }
 
     ~Ramen() {
-        std::cout << GetName() << " destroyed. " << GetInfo() << std::endl;
+        std::cout << GetName() << " destroyed." << GetInfo() << std::endl;
     }
 
     Ramen& AddFork(bool fork) {

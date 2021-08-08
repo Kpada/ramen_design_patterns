@@ -16,8 +16,9 @@ But:
 ## Output
 
 ```
-I'm visiting a ramen restaurant. There is only one chef working here.
-Regardless of the number of visitors, only this chef can prepare the order. He is a singleton.
+I'm visiting a ramen restaurant.There is only one chef working here.
+Regardless of the number of visitors, only this chef can prepare the order.
+He is a singleton.
 
  Chef created
 Visitor2 ordered ramen.
@@ -30,4 +31,5 @@ Visitor3 ordered udon.
  udon created.
 Someone is eating udon
 I'm leaving the restaurant.
+
 ```

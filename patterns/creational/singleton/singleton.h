@@ -73,10 +73,11 @@ public:
 private:
     void BusinessLogic() final {
         std::cout <<
-            "I'm visiting a ramen restaurant. " <<
+            "I'm visiting a ramen restaurant." <<
             "There is only one chef working here." << std::endl <<
             "Regardless of the number of visitors, " <<
-            "only this chef can prepare the order. He is a singleton." <<
+            "only this chef can prepare the order." << std::endl <<
+            "He is a singleton." <<
             std::endl << std::endl;
 
         Chef& chef = Chef::GetInstance();

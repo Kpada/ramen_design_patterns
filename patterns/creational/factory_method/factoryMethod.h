@@ -89,8 +89,8 @@ public:
 private:
     void BusinessLogic() final {
         std::cout << 
-            "It's dinner time. I'm so hungry. " <<
-            "I don't know what exactly I want to eat. " <<
+            "It's dinner time. I'm so hungry." <<
+            "I don't know what exactly I want to eat." << std::endl <<
             "I'm just going to visit the closest restaurant and " <<
             "order their best meal." << std::endl << std::endl;
 
@@ -110,8 +110,8 @@ private:
         }
 
         std::cout <<
-            "[Me] Hello. I don't know that kind of restaurant is this. " <<
-            "I don't know what dishes you have. " <<
+            "[Me] Hello. I don't know that kind of restaurant is this." << std::endl <<
+            "I don't know what dishes you have." << std::endl <<
             "So give me your best meal, please." << std::endl << std::endl;
 
         restaurant->HaveDinner();
