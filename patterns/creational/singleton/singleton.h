@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __SINGLETON_H__
+#define __SINGLETON_H__
 
 #include <iostream>
 #include <string>
@@ -16,13 +17,13 @@ namespace Singleton {
 /* Food */
 class Food {
 public:
-    explicit Food(std::string name)
-    : m_name(move(name)) {
-        std::cout << " " << m_name << " created." << std::endl;
+    explicit Food(std::string name) : m_name(move(name)) {
+        std::cout << PrinterState::PlainText << m_name << " created\n";
     }
 
     void Eat() {
-        std::cout << "Someone is eating " << m_name << std::endl;
+        std::cout <<
+            PrinterState::PlainText << "Someone is eating " << m_name << '\n';
     }
 
 private:
@@ -53,49 +54,49 @@ public:
 private:
     /* hide the constructor */
     Chef() {
-        std::cout << " Chef created" << std::endl;
+        std::cout << PrinterState::Quote << "Singleton Chef created!\n";
     }
 
-    /* delete copy/move */
+    ~Chef() {
+        std::cout << PrinterState::Quote << "Singleton Chef destroyed!\n";
+    }
+
+    /* delete copy / move */
     Chef(const Chef&) = delete;
-    Chef& operator=(const Chef&) = delete;
+    Chef& operator = (const Chef&) = delete;
     Chef(Chef&&) = delete;
-    Chef& operator=(Chef&&) = delete;
+    Chef& operator = (Chef&&) = delete;
 };
 
 /* Singleton Pattern */
 class Pattern : public IPattern {
 public:
-    Pattern()
-    : IPattern("Singleton")
-    {}
+    Pattern() : IPattern("Singleton") {}
 
 private:
     void BusinessLogic() final {
         std::cout <<
-            "I'm visiting a ramen restaurant." <<
-            "There is only one chef working here." << std::endl <<
-            "Regardless of the number of visitors, " <<
-            "only this chef can prepare the order." << std::endl <<
-            "He is a singleton." <<
-            std::endl << std::endl;
+            PrinterState::PlainText <<
+            "I'm visiting a ramen restaurant. There is only one chef is " <<
+            "working here. Regardless of the number of visitors, only this " <<
+            "chef can prepare the order.\n" <<
+            "He is a singleton.\n";
 
-        Chef& chef = Chef::GetInstance();
-
+        Chef& chef1 = Chef::GetInstance();
         {
-            std::cout << "Visitor2 ordered ramen." << std::endl;
+            std::cout << PrinterState::Quote << "Visitor2 is ordering ramen.\n";
             Chef& chef2 = Chef::GetInstance();
             chef2.CookRamen().Eat();
         }
 
-        std::cout << "Visitor1 ordered gyoza." << std::endl;
-        chef.CookGyoza().Eat();
+        std::cout << PrinterState::Quote << "Visitor1 is ordering gyoza.\n";
+        chef1.CookGyoza().Eat();
 
-        std::cout << "Visitor3 ordered udon." << std::endl;
+        std::cout << PrinterState::Quote << "Visitor3 is ordering udon.\n";
         Chef::GetInstance().CookUdon().Eat();
-
-        std::cout << "I'm leaving the restaurant." << std::endl;
     }
 };
 
 } /* namespace */
+
+#endif /* __SINGLETON_H__ */

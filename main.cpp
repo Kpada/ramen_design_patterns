@@ -1,9 +1,9 @@
-
 #include <iostream>
 #include <memory>
 #include <exception>
 #include <vector>
 
+#include "printer.h"
 #include "patterns/iPattern.h"
 #include "patterns/creational/factory_method/factoryMethod.h"
 #include "patterns/creational/abstract_factory/abstractFactory.h"

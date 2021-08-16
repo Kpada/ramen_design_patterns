@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BUILDER_H__
+#define __BUILDER_H__
 
 #include <iostream>
 #include <string>
@@ -8,9 +9,7 @@
 #include "../../iPattern.h"
 
 /* GoF design pattern: Builder */
-
 namespace Builder {
-
 
 enum class RamenType {
     Shoyu,
@@ -69,8 +68,7 @@ std::ostream& operator << (std::ostream& os, const Gyoza& gyoza) {
 /* This is a big class with a lot of possible constructor arguments */
 class Ramen {
 public:
-    Ramen()
-    {}
+    Ramen() {}
 
     Ramen& SetType(RamenType type) {
         m_type = type;
@@ -103,15 +101,15 @@ public:
     }
 
     void Eat() const {
-        std::cout << "This is my ramen:" << std::endl;
         std::cout <<
+            PrinterState::PlainText << "This is my ramen:\n" <<
             "Type = " << m_type <<
             ", Weight = " << m_weight <<
             ", Purgency = " << m_purgency <<
             ", Beverage = " << (m_beverage.empty() ? "None" : m_beverage) <<
             ", Gyoza = "    << m_gyoza <<
-            ", Fork = " << (m_europeanFork ? "Yes" : "No");
-        std::cout << std::endl;
+            ", Fork = " << (m_europeanFork ? "Yes" : "No") <<
+            "\n";
     }
 
 private:
@@ -194,7 +192,7 @@ public:
 /* Director */
 class Waiter {
 public:
-    Waiter(std::unique_ptr<IBuilder> builder) {
+    explicit Waiter(std::unique_ptr<IBuilder> builder) {
         SetBuilder(move(builder));
     }
 
@@ -216,25 +214,20 @@ private:
 /* Builder Pattern */
 class Pattern : public IPattern {
 public:
-    Pattern()
-    : IPattern("Builder")
-    {}
+    Pattern() : IPattern("Builder") {}
 
 private:
     void BusinessLogic() final {
         std::cout <<
-            "It's dinner time. I'm so hungry." <<
-            "I'm going to visit my favorite ramen restaurant." << std::endl <<
-            "They have so many possible options." << std::endl <<
+            PrinterState::PlainText <<
+            "It's dinner time. I'm so hungry. I'm going to visit my favorite " <<
+            "ramen restaurant. They have so many possible options. " <<
             "Fortunately, I don't need to explain to the waiter what I want " <<
-            "for each possible parameter." << std::endl <<
-            "I can just use their menu." <<
-            std::endl;
+            "for each possible parameter. I can just use their menu.\n";
 
         std::cout <<
-            std::endl <<
-            "[Me] I want to have a big tonkotsu ramen with gyoza and beer." <<
-            std::endl << std::endl;
+            PrinterState::Quote <<
+            "[Me] I want to have a big tonkotsu ramen with gyoza and beer.\n";
 
         Waiter waiter(std::make_unique<BuildBigTonkotsuRamenWithGyozaAndBeer>());
         Ramen ramen = waiter.MakeOrder();
@@ -243,3 +236,5 @@ private:
 };
 
 } /* namespace */
+
+#endif /* __BUILDER_H__ */

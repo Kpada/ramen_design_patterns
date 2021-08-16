@@ -1,8 +1,10 @@
-#pragma once
+#ifndef __FACTORY_METHOD_H__
+#define __FACTORY_METHOD_H__
 
 #include <iostream>
 #include <memory>
 #include <exception>
+#include <random>
 
 #include "../../iPattern.h"
 
@@ -15,13 +17,19 @@ class IFood {
 public:
     virtual ~IFood() = default;
     virtual void Eat() const = 0;
+
+protected:
+    void SetUpText() const {
+        std::cout << PrinterState::PlainText;
+    }
 };
 
 /* Contrete food 1 */
 class Ramen : public IFood {
 public:
     void Eat() const override {
-        std::cout << "This is Ramen!" << std::endl;
+        SetUpText();
+        std::cout << "This is Ramen!\n";
     }
 };
 
@@ -29,7 +37,8 @@ public:
 class Sushi : public IFood {
 public:
     void Eat() const override {
-        std::cout << "This is Sushi!" << std::endl;
+        SetUpText();
+        std::cout << "This is Sushi!\n";
     }
 };
 
@@ -37,7 +46,8 @@ public:
 class Curry : public IFood {
 public:
     void Eat() const override {
-        std::cout << "This is Curry!" << std::endl;
+        SetUpText();
+        std::cout << "This is Curry!\n";
     }
 };
 
@@ -46,19 +56,20 @@ class IRestaurant {
 public:
     virtual ~IRestaurant() = default;
 
+    /* Creator may have some logic */
     void HaveDinner() const {
-        std::unique_ptr<IFood> food = CreateFood();
+        std::unique_ptr<IFood> food = FactoryMethod();
         food->Eat();
     }
 
 private:
-    virtual std::unique_ptr<IFood> CreateFood() const = 0;
+    virtual std::unique_ptr<IFood> FactoryMethod() const = 0;
 };
 
 /* Concrete Creator 1 */
 class RamenRestaurant : public IRestaurant {
 private:
-    std::unique_ptr<IFood> CreateFood() const override {
+    std::unique_ptr<IFood> FactoryMethod() const override {
         return std::make_unique<Ramen>();
     }
 };
@@ -66,7 +77,7 @@ private:
 /* Concrete Creator 2 */
 class SushiRestaurant : public IRestaurant {
 private:
-    std::unique_ptr<IFood> CreateFood() const override {
+    std::unique_ptr<IFood> FactoryMethod() const override {
         return std::make_unique<Sushi>();
     }
 };
@@ -74,7 +85,7 @@ private:
 /* Concrete Creator 3 */
 class IndianRestaurant : public IRestaurant {
 private:
-    std::unique_ptr<IFood> CreateFood() const override {
+    std::unique_ptr<IFood> FactoryMethod() const override {
         return std::make_unique<Curry>();
     }
 };
@@ -82,42 +93,66 @@ private:
 /* Factory Method Pattern */
 class Pattern : public IPattern {
 public:
-    Pattern()
-    : IPattern("Factory Method")
-    {}
+    Pattern() : IPattern("Factory Method") {}
 
 private:
     void BusinessLogic() final {
-        std::cout << 
-            "It's dinner time. I'm so hungry." <<
-            "I don't know what exactly I want to eat." << std::endl <<
-            "I'm just going to visit the closest restaurant and " <<
-            "order their best meal." << std::endl << std::endl;
+        std::cout <<
+            PrinterState::PlainText <<
+            "It's dinner time. I'm so hungry. I don't know what exactly " <<
+            "I want to eat. I'm just going to visit the closest restaurant " <<
+            "and order their best meal.\n";
 
-        std::unique_ptr<IRestaurant> restaurant;
+        /* get a random restaurant */
+        std::unique_ptr<IRestaurant> restaurant = GetRandomRestaurant();
 
-        /* The closest restaurant today is a ramen restaurant */
-        if (1) {
-            restaurant = std::make_unique<RamenRestaurant>();
-        }
-
-        VisitRestaurant(move(restaurant));
+        /* and visit it */
+        VisitRestaurant(std::move(restaurant));
     }
 
+private:
     void VisitRestaurant(std::unique_ptr<IRestaurant> restaurant) {
         if (!restaurant) {
             throw std::runtime_error("");
         }
 
         std::cout <<
-            "[Me] Hello. I don't know that kind of restaurant is this." << std::endl <<
-            "I don't know what dishes you have." << std::endl <<
-            "So give me your best meal, please." << std::endl << std::endl;
+            PrinterState::Quote <<
+            "[Me] Hello. I don't know that kind of restaurant is this. " <<
+            "I don't know what dishes you have. Give me your best meal, " <<
+            "please.\n";
 
         restaurant->HaveDinner();
 
-        std::cout << std::endl << "[Me] It was very tasty. Thanks." << std::endl;
+        std::cout <<
+            PrinterState::Quote <<
+            "[Me] It was very tasty. Thanks.\n";
+    }
+
+    /* Returns a random factory (restaurant) */
+    std::unique_ptr<IRestaurant> GetRandomRestaurant() {
+        const unsigned int numOfRestaurants = 3;
+
+        std::random_device rd;
+        const int idx = rd() % numOfRestaurants;
+
+        switch (idx) {
+        case 0:
+            return std::make_unique<RamenRestaurant>();
+            break;
+        case 1:
+            return std::make_unique<SushiRestaurant>();
+            break;
+        case 2:
+            return std::make_unique<IndianRestaurant>();
+            break;
+        default:
+            throw std::runtime_error("Unsupported fabric index");
+            break;
+        }
     }
 };
 
 } /* namespace */
+
+#endif /* __FACTORY_METHOD_H__ */

@@ -1,25 +1,21 @@
-#pragma once
+#ifndef __INTERFACE_PATTERN_H__
+#define __INTERFACE_PATTERN_H__
 
 #include <iostream>
 #include <string>
 
-/* Common Pattern Interface */
+#include "../printer.h"
 
+/* Pattern Interface */
 class IPattern {
 public:
-    IPattern(std::string title)
-    : patternName(move(title))
-    {}
+    explicit IPattern(std::string title) : m_patternName(std::move(title)) {}
 
     virtual ~IPattern() {};
 
     void Execute() {
-        std::cout << "#### " << patternName << std::endl << std::endl;
-        std::cout << "```" << std::endl;
-
+        std::cout << PrinterState::Title << m_patternName;
         BusinessLogic();
-
-        std::cout << std::endl << "```" <<  std::endl;
     }
 
 protected:
@@ -27,5 +23,7 @@ protected:
     virtual void BusinessLogic() = 0;
 
 private:
-    const std::string patternName;
+    const std::string m_patternName;
 };
+
+#endif /* __INTERFACE_PATTERN_H__ */

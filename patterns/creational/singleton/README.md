@@ -15,21 +15,26 @@ But:
 
 ## Output
 
-```
-I'm visiting a ramen restaurant.There is only one chef working here.
-Regardless of the number of visitors, only this chef can prepare the order.
+I'm visiting a ramen restaurant. There is only one chef is working here. Regardless of the number of visitors, only this chef can prepare the order.
 He is a singleton.
 
- Chef created
-Visitor2 ordered ramen.
- ramen created.
-Someone is eating ramen
-Visitor1 ordered gyoza.
- gyoza created.
-Someone is eating gyoza
-Visitor3 ordered udon.
- udon created.
-Someone is eating udon
-I'm leaving the restaurant.
+> Singleton Chef created!
+Visitor2 is ordering ramen.
 
-```
+ramen created
+
+Someone is eating ramen
+
+> Visitor1 is ordering gyoza.
+
+gyoza created
+
+Someone is eating gyoza
+
+> Visitor3 is ordering udon.
+
+udon created
+
+Someone is eating udon
+
+> Singleton Chef destroyed!

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __PROTOTYPE_H__
+#define __PROTOTYPE_H__
 
 #include <iostream>
 #include <string>
@@ -29,7 +30,7 @@ std::ostream& operator << (std::ostream& os, Person type) {
     } else if (type == Person::Friend) {
         os << "[FoM]";
     } else {
-        throw std::runtime_error("");
+        throw std::runtime_error("Unknown person");
     }
 
     return os;
@@ -39,15 +40,11 @@ std::ostream& operator << (std::ostream& os, Person type) {
 class Print {
 public:
     static void Say(Person person, const std::string& text) {
-        std::cout << person << " " << text << std::endl;
+        std::cout << PrinterState::Quote << person << " " << text <<  std::endl;
     }
 
-    static void Say(const std::string& text) {
-        std::cout << text << std::endl;
-    }
-
-    static void NewLine() {
-        std::cout << std::endl;
+    static void Info(const std::string& text) {
+        std::cout << PrinterState::PlainText << text << std::endl;
     }
 };
 
@@ -55,8 +52,8 @@ public:
 /* Food Interface */
 class IFood {
 public:
-    IFood(std::string name)
-    : m_name(move(name)) 
+    explicit IFood(std::string name)
+    : m_name(move(name))
     {}
 
     virtual ~IFood() {}
@@ -76,21 +73,33 @@ protected:
 /* Ramen */
 class Ramen : public IFood {
 public:
-    Ramen(std::string name, std::uint16_t weight = 500, bool fork = false)
+    explicit Ramen(std::string name, std::uint16_t weight = 500, bool fork = false)
     : IFood(move(name))
     , m_weight(weight)
     , m_fork(fork) {
-        std::cout << GetName() << " created." << GetInfo() << std::endl;
+        std::cout <<
+            PrinterState::PlainText <<
+            GetName() << " created. " << GetInfo() << std::endl;
     }
 
     ~Ramen() {
-        std::cout << GetName() << " destroyed." << GetInfo() << std::endl;
+        std::cout <<
+            PrinterState::PlainText <<
+            GetName() << " destroyed. " << GetInfo() << std::endl;
+    }
+
+    /* Cloning method */
+    std::unique_ptr<IFood> Clone() const override {
+        return std::make_unique<Ramen>(m_name, m_weight, m_fork);
     }
 
     Ramen& AddFork(bool fork) {
         m_fork = fork;
-        std::cout << GetName() <<
-                     ": set fork = " << std::boolalpha << m_fork << std::endl;
+        std::cout <<
+            PrinterState::PlainText <<
+            GetName() <<
+            ": set fork = " << std::boolalpha << m_fork << std::endl;
+
         return *this;
     }
 
@@ -98,18 +107,18 @@ public:
         const std::uint16_t eatStep = 100;
 
         m_weight = m_weight > eatStep ? m_weight - eatStep : 0;
-        std::cout << "Eating " << GetName() << ": " << GetInfo() << std::endl;
-    }
-
-    std::unique_ptr<IFood> Clone() const override {
-        return std::make_unique<Ramen>(m_name, m_weight, m_fork);
+        std::cout <<
+            PrinterState::PlainText <<
+            "Eating " << GetName() << ": " << GetInfo() << std::endl;
     }
 
 private:
     std::string GetInfo() {
         std::stringstream ss;
 
-        ss << "Weight = " << m_weight << ", Fork = " << std::boolalpha << m_fork;
+        ss <<
+            PrinterState::PlainText <<
+            "Weight = " << m_weight << ", Fork = " << std::boolalpha << m_fork;
         return ss.str();
     }
 
@@ -121,9 +130,7 @@ private:
 /* Prototype Pattern */
 class Pattern : public IPattern {
 public:
-    Pattern()
-    : IPattern("Prototype")
-    {}
+    Pattern() : IPattern("Prototype") {}
 
 private:
     void BusinessLogic() final {
@@ -133,28 +140,29 @@ private:
         Print::Say(Person::Me, "Hi. I will have a Ramen.");
         Print::Say(Person::Waiter, "Sure. This is the best ramen in our city.");
         Ramen myRamen(ramenName);
-        Print::NewLine();
 
         /* update */
         Print::Say(Person::Me, "I cannot use chopsticks. May I have a fork?");
         myRamen.AddFork(true);
         myRamen.Eat();
-        Print::NewLine();
 
-        /* clone */
-        Print::Say("A friend of mine went to the restaurant...");
+        /* clone */ 
+        Print::Info("\nUnexpectedly, a friend of mine came into the restaurant...");
         Print::Say(Person::Friend, "Hi. What are you eating?");
         Print::Say(Person::Me, ramenName);
         Print::Say(Person::Friend, "Waiter, I'd like to have the same ramen.");
 
         auto friendsRamen = myRamen.Clone();
-        Print::NewLine();
 
         Print::Say(Person::Friend, "Waiter, my bowl is not full.");
         Print::Say(Person::Waiter, "Yes. You asked for the same. This is the same.");
         Print::Say(Person::Friend, "o_O");
         Print::Say(Person::Me, "o_O");
+
+        friendsRamen->Eat();
     }
 };
 
 } /* namespace */
+
+#endif /* __PROTOTYPE_H__ */
