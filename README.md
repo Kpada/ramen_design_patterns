@@ -252,3 +252,201 @@ Price of My ramen = 1200
 
 ## [Behavioral patterns](patterns/behavioral)
 
+
+### Chain of Responsibility
+
+> What can I buy in this restaurant? My money = 100.
+
+Your money = 100, price = 1000. You can NOT buy ramen
+
+Your money = 100, price = 500. You can NOT buy gyoza
+
+Your money = 100, price = 750. You can NOT buy beer
+
+You can NOT buy udon. We don't have it. This is a ramen restaurant.
+
+> What can I buy in this restaurant? Money = 1000.
+
+Your money = 1000, price = 1000. You can buy ramen
+
+Your money = 1000, price = 500. You can buy gyoza
+
+Your money = 1000, price = 750. You can buy beer
+
+You can NOT buy udon. We don't have it. This is a ramen restaurant.
+
+
+### Command
+
+> We're visiting a ramen restaurant. We're going to order 2 bowls or ramen
+
+Cooking Ramen
+
+Cooking Ramen
+
+> A friend of mine also decided to order some gyoza
+
+Cooking Gyoza
+
+> But we don't have enough money and cannot afford these gyoza. So we asked the waiter for a cancelation
+
+Stop cooking Gyoza
+
+
+### Mediator
+
+> We want to notify every restaurant when someone has ordered a meal. If the restaurant sees others' orders, they will increase their advertising budget and we will get more money :)
+
+Miso Ramen ordered from Ramen Restaurant
+
+Mediator notified that someone ordered Miso Ramen
+
+Mediator is notifying the Udon restaurant that they're  losing clients...
+
+Udon Restaurant: we should increase the ad budget.
+
+### Memento
+
+> I'm a chef in a ramen restaurant. I want to make the best ramen. I will change the recipe and receive feedback from customers. If the customers are unhappy, we should be able to roll back the recipe to the last successful state.
+
+Originator's initial state = soup, noodles
+
+Caretaker: Saving Originator's state.
+
+> Let's add egg
+
+Originator's new state: soup, noodles, egg
+
+> I've added an egg to the recipe and sales went up
+
+Caretaker: Saving Originator's state.
+
+> Let's add nori
+
+Originator's new state: soup, noodles, egg, nori
+
+> I've added nori to the recipe and sales went up
+
+Caretaker: Saving Originator's state.
+
+> Let's add bacon
+
+Originator's new state: soup, noodles, egg, nori, bacon
+
+> I've added bacon to the recipe and sales dropped. Let's restore the previous state.
+
+Caretaker: List of snapshots
+
+2021-08-22 13:15:15 / soup, noodles
+
+2021-08-22 13:15:16 / soup, noodles, egg
+
+2021-08-22 13:15:17 / soup, noodles, egg, nori
+
+Caretaker is restoring the state from 'soup, noodles, egg, nori, bacon' to 'soup, noodles, egg, nori'
+
+Originator' state restored: soup, noodles, egg, nori
+
+
+### State
+
+> There is a promo in our restaurant. We give you free gyoza after every 3 ramen orders
+
+> New context state: N5State10StateRamenE.
+
+order 1: 
+Ramen: Cooking ramen
+
+order 2: 
+Ramen: Cooking ramen
+
+order 3: 
+Ramen: Cooking ramen
+
+> New context state: N5State15StateBonusGyozaE.
+
+Gyoza: Cooking bonus gyoza
+
+Gyoza: restore the previous state
+
+> New context state: N5State10StateRamenE.
+
+order 4: 
+Ramen: Cooking ramen
+
+
+### Strategy
+
+> Each dish has a different cooking strategy. But there is only one way to order a dish.
+
+
+> The new context's strategy: N8Strategy13StrategyRamenE.
+
+Cooking ramen
+
+> The new context's strategy: N8Strategy13StrategyGyozaE.
+
+Cooking gyoza
+
+
+### Template Method
+
+> Eating dinner consists of the same steps. However, depending on the dish or restaurant, the implementation of these steps may differ.
+
+
+> I'm going to eat Ramen
+
+Wash hands
+
+Make the order
+
+Itadakimasu
+
+Take chopsticks
+
+Eat
+
+Finish
+
+> I'm going to eat KFC
+
+Wash hands
+
+Make the order
+
+Eat
+
+Finish
+
+Clear the table
+
+
+### Visitor
+
+> Each restaurant visitor has his own food preferences. For example, on Thursday I just want to have lunch, and on Friday I also want to drink a little alcohol.
+
+
+Today is Thursday. I'm visiting a Ramen restaurant to dine without drinks. The cost of the dinner = 1000
+
+Today is Thursday. I'm visiting a Sushi restaurant to dine without drinks. The cost of the dinner = 2000
+
+Today is Friday. I'm visiting a Ramen restaurant to dine with drinks. The cost of the dinner = 1500
+
+Today is Friday. I'm visiting a Sushi restaurant to dine with drinks. The cost of the dinner = 2800
+
+> Singleton Chef destroyed!
+
+
+### Observer
+
+> Due to the global crisis, the country ran out of stocks of ramen. But when the stocks are restored, we want to notify our customers immediately.
+
+Ramen stocks restored!
+
+A ramen fan named Nik received a message from the Observer.
+
+> I'm going to visit a ramen restaurant immideately!
+
+A ramen fan named Alex received a message from the Observer.
+
+> I'm going to visit a ramen restaurant immideately!
