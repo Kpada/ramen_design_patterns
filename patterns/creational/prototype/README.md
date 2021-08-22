@@ -14,7 +14,8 @@ But:
 ## Output
 
 > [Me] Hi. I will have a Ramen.
-[Waiter] Sure. This is the best ramen in our city.
+
+> [Waiter] Sure. This is the best ramen in our city.
 
 Miso Ramen created. 
 Weight = 500, Fork = false
@@ -30,16 +31,21 @@ Weight = 400, Fork = true
 Unexpectedly, a friend of mine came into the restaurant...
 
 > [FoM] Hi. What are you eating?
-[Me] Miso Ramen
-[FoM] Waiter, I'd like to have the same ramen.
+
+> [Me] Miso Ramen
+
+> [FoM] Waiter, I'd like to have the same ramen.
 
 Miso Ramen created. 
 Weight = 400, Fork = true
 
 > [FoM] Waiter, my bowl is not full.
-[Waiter] Yes. You asked for the same. This is the same.
-[FoM] o_O
-[Me] o_O
+
+> [Waiter] Yes. You asked for the same. This is the same.
+
+> [FoM] o_O
+
+> [Me] o_O
 
 Eating Miso Ramen: 
 Weight = 300, Fork = true

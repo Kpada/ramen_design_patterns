@@ -41,7 +41,8 @@ Type = Tonkonsu, Weight = 1000, Purgency = Hot, Beverage = Beer, Gyoza = 10, For
 ### Prototype
 
 > [Me] Hi. I will have a Ramen.
-[Waiter] Sure. This is the best ramen in our city.
+
+> [Waiter] Sure. This is the best ramen in our city.
 
 Miso Ramen created. 
 Weight = 500, Fork = false
@@ -57,16 +58,21 @@ Weight = 400, Fork = true
 Unexpectedly, a friend of mine came into the restaurant...
 
 > [FoM] Hi. What are you eating?
-[Me] Miso Ramen
-[FoM] Waiter, I'd like to have the same ramen.
+
+> [Me] Miso Ramen
+
+> [FoM] Waiter, I'd like to have the same ramen.
 
 Miso Ramen created. 
 Weight = 400, Fork = true
 
 > [FoM] Waiter, my bowl is not full.
-[Waiter] Yes. You asked for the same. This is the same.
-[FoM] o_O
-[Me] o_O
+
+> [Waiter] Yes. You asked for the same. This is the same.
+
+> [FoM] o_O
+
+> [Me] o_O
 
 Eating Miso Ramen: 
 Weight = 300, Fork = true
@@ -84,7 +90,8 @@ I'm visiting a ramen restaurant. There is only one chef is working here. Regardl
 He is a singleton.
 
 > Singleton Chef created!
-Visitor2 is ordering ramen.
+
+> Visitor2 is ordering ramen.
 
 ramen created
 
@@ -102,6 +109,131 @@ udon created
 
 Someone is eating udon
 
-> Singleton Chef destroyed!
 
 ## [Structural patterns](patterns/structural)
+
+
+### Adapter
+
+> I'm going to eat a sausage using a fork
+
+Got utensils (fork)
+
+The sausage has been eaten
+
+> I'm going to eat ramen using chopsticks
+
+Got utensils (chopsticks)
+
+The ramen has been eaten
+
+> I'm going to eat ramen using a fork
+
+Fork to Chopshicks adapter. Calling 'TakeChopsticks'.
+
+Got utensils (chopsticks)
+
+The ramen has been eaten
+
+
+### Bridge
+
+It's lunchtime. I'm eating Udon noodles.
+
+It's lunchtime. I'm eating Ramen noodles.
+
+It's dinnertime. I'm eating Udon noodles and drinking beer =)
+
+It's dinnertime. I'm eating Ramen noodles and drinking beer =)
+
+
+### Decorator
+
+Just Ramen: Ramen, price = 1000
+
+Added gyoza: Ramen + Gyoza, price = 1500
+
+Added Beer: Ramen + Gyoza + Beer, price = 1850
+
+One beer more: Ramen + Gyoza + Beer + Beer, price = 2200
+
+Ramen & Beer: Ramen + Beer, price = 1350
+
+
+### Facade
+
+> Ordering at a ramen restaurant is not easy. They usually use vending machines, so you have to: choose a dish (if you can read Japanese), put some money, get a ticket, give it to the chef. This facade will help me not to starve to death.
+
+Chosen miso ramen
+
+Inseted money
+
+Ticket created: miso ramen
+
+Chef got a ticket and started cooking miso ramen
+
+
+### Proxy
+
+> I'm going to have dinner: ramen and beer. In this country you can drink alcohol from the age of 20. I'm 29.
+
+Someone's drinking beer
+
+Someone's eating ramen
+
+> A schoolboy entered the restaurant. He's 17. He is not allowed to drink beer.
+
+Drink beer failed: Sorry, you're too young
+
+Someone's eating ramen
+
+
+### Flyweight
+
+> We are going to develop an app for ramen lovers. We will map the best restaurants in the country. Obviouly, each restaurant has 2 types of data: shared data (its address) and unique data (its name and type).To avoid duplicates and save memory resourese we will use flyweighs.
+
+Creating the factory
+
+> There are 3 flyweights and 3 shared states.
+
+> 1) [Russia / Moscow / 103132 / The Kremlin]
+
+> 2) [Russia / Moscow / 109651 / Pererva, 42]
+
+> 3) [Russia / St. Petersburg / 190000 / Saint Isaac's Cathedral]
+
+Adding a restaurant to the map...
+
+> FlyWeight Factory: the flyweight is found, reuse it.
+
+> FlyWeight operation: shared ([Russia / Moscow / 109651 / Pererva, 42]) and unique ([Best-Ramen / Ramen]) state.
+
+Adding a restaurant to the map...
+
+> FlyWeight Factory: cannot find a flyweight, creating a new one.
+
+> FlyWeight operation: shared ([Russia / Moscow / 123456 / Untitled street, 42]) and unique ([Ku-Ramen / Ramen]) state.
+
+Adding a restaurant to the map...
+
+> FlyWeight Factory: the flyweight is found, reuse it.
+
+> FlyWeight operation: shared ([Russia / Moscow / 123456 / Untitled street, 42]) and unique ([Best-Gyoza / Gyoza]) state.
+
+Adding a restaurant to the map...
+
+> FlyWeight Factory: the flyweight is found, reuse it.
+
+> FlyWeight operation: shared ([Russia / Moscow / 123456 / Untitled street, 42]) and unique ([Best-Udon / Udon]) state.
+
+> There are 4 flyweights and 4 shared states.
+
+> 1) [Russia / Moscow / 103132 / The Kremlin]
+
+> 2) [Russia / Moscow / 109651 / Pererva, 42]
+
+> 3) [Russia / Moscow / 123456 / Untitled street, 42]
+
+> 4) [Russia / St. Petersburg / 190000 / Saint Isaac's Cathedral]
+
+## [Behavioral patterns](patterns/behavioral)

@@ -19,7 +19,8 @@ I'm visiting a ramen restaurant. There is only one chef is working here. Regardl
 He is a singleton.
 
 > Singleton Chef created!
-Visitor2 is ordering ramen.
+
+> Visitor2 is ordering ramen.
 
 ramen created
 
