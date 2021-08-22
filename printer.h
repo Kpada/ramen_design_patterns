@@ -76,6 +76,8 @@ private:
             Quote(os);
             break;
         case PrinterState::Quote:
+            NewLine(os);
+            Quote(os);
             break;
         }
     }
