@@ -8,7 +8,6 @@
 #include "../../iPattern.h"
 
 /* GoF design pattern: Proxy */
-
 namespace Proxy {
 
 using Age = unsigned;

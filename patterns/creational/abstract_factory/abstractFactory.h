@@ -7,7 +7,6 @@
 #include "../../iPattern.h"
 
 /* GoF design pattern: Abstract Facroty */
-
 namespace AbtractFactory {
 
 /* Beverage interface */

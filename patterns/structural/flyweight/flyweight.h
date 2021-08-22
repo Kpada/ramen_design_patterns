@@ -11,7 +11,6 @@
 #include "../../iPattern.h"
 
 /* GoF design pattern: Flyweight */
-
 namespace Flyweight {
 
 /* Shared state must not give a chance to change its internal state */
@@ -240,7 +239,7 @@ private:
             "We are going to develop an app for ramen lovers. We will map " <<
             "the best restaurants in the country. " <<
             "Obviouly, each restaurant has 2 types of data: " <<
-            "shared data (its address) and unique data (its name and type)." <<
+            "shared data (its address) and unique data (its name and type). " <<
             "To avoid duplicates and save memory resourese we will use flyweighs.\n";
 
         std::cout << PrinterState::PlainText << "Creating the factory\n";

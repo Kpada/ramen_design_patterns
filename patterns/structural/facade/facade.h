@@ -9,7 +9,6 @@
 #include "../../iPattern.h"
 
 /* GoF design pattern: Facade */
-
 namespace Facade {
 
 /* Subsystem 1: Menu (a list of food and beverages) */

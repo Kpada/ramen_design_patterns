@@ -9,7 +9,6 @@
 #include "../../iPattern.h"
 
 /* GoF design pattern: Decorator */
-
 namespace Decorator {
 
 /* Food interface */

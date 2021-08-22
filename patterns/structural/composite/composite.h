@@ -10,7 +10,6 @@
 #include "../../iPattern.h"
 
 /* GoF design pattern: Composite */
-
 namespace Composite {
 
 /* Component is a base class for Compotises and Leafs */
