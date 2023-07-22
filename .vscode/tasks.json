@@ -4,17 +4,9 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++ build active file",
-            "command": "/usr/bin/g++",
+            "command": "make",
             "args": [
-                "-g",
-                "-Wall",
-                "-Wextra",
-                "-Wpedantic",
-                "-Wunused",
-                "-std=c++14",
-                "${workspaceFolder}/main.cpp",
-                "-o",
-                "${workspaceFolder}/main"
+                "build",
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
