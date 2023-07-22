@@ -32,6 +32,12 @@ class Food {
 /* Singleton - a chef at a restaurant */
 class Chef {
  public:
+  /* delete copy / move */
+  Chef(const Chef&) = delete;
+  Chef& operator=(const Chef&) = delete;
+  Chef(Chef&&) = delete;
+  Chef& operator=(Chef&&) = delete;
+
   /* creates and returns the singleton */
   static Chef& GetInstance() {
     static Chef instance;
@@ -49,12 +55,6 @@ class Chef {
   Chef() { std::cout << PrinterState::Quote << "Singleton Chef created!\n"; }
 
   ~Chef() { std::cout << PrinterState::Quote << "Singleton Chef destroyed!\n"; }
-
-  /* delete copy / move */
-  Chef(const Chef&) = delete;
-  Chef& operator=(const Chef&) = delete;
-  Chef(Chef&&) = delete;
-  Chef& operator=(Chef&&) = delete;
 };
 
 /* Singleton Pattern */
@@ -63,7 +63,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Singleton") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout
         << PrinterState::PlainText
         << "I'm visiting a ramen restaurant. There is only one chef is "

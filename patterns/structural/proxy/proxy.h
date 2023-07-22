@@ -20,7 +20,7 @@ class CountyLaws {
 /* Interface */
 class IDinner {
  public:
-  virtual ~IDinner() {}
+  virtual ~IDinner() noexcept = default;
   virtual void DrinkBeer() const = 0;
   virtual void EatRamen() const = 0;
 };
@@ -72,7 +72,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Proxy") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     const Age myAge = 29;
     const Age schoolboyAge = CountyLaws::GetMinAllowedAgeToDrinkAlcohol() - 3;
 

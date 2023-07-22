@@ -16,13 +16,13 @@ class Handler {
  public:
   explicit Handler(int price) : m_price(price) {}
 
-  virtual ~Handler() {}
+  virtual ~Handler() noexcept = default;
 
   void SetNext(std::unique_ptr<Handler> next) {
     m_nextHandler = std::move(next);
   }
 
-  /* Chilnder mush override this */
+  /* Chilnder should override this method */
   virtual void Process(int money) const = 0;
 
  protected:
@@ -148,7 +148,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Chain of Responsibility") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::unique_ptr<Handler> chain = MenuBuilder::Build();
 
     std::cout << PrinterState::Quote

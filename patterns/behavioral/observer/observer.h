@@ -14,14 +14,14 @@ namespace Observer {
 /* Observer interface. If we use the inreface we  */
 class IObserver {
  public:
-  virtual ~IObserver(){};
+  virtual ~IObserver() noexcept = default;
   virtual void Update(const std::string& message) = 0;
 };
 
 /* Subject interface */
 class ISubject {
  public:
-  virtual ~ISubject(){};
+  virtual ~ISubject() noexcept = default;
   virtual void Attach(std::shared_ptr<IObserver>) = 0;
   virtual void Detach(std::shared_ptr<IObserver>) = 0;
 
@@ -86,7 +86,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Observer") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout << PrinterState::Quote
               << "Due to the global crisis, the country ran out of stocks of "
               << "ramen. But when the stocks are restored, we want to notify "

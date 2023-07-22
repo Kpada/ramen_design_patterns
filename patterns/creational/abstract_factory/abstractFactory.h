@@ -12,7 +12,7 @@ namespace AbtractFactory {
 /* Beverage interface */
 class IBeverage {
  public:
-  virtual ~IBeverage() {}
+  virtual ~IBeverage() noexcept = default;
   void Drink() const {
     std::cout << PrinterState::PlainText;
     DrinkImplementation();
@@ -25,7 +25,7 @@ class IBeverage {
 /* Food interface */
 class IFood {
  public:
-  virtual ~IFood() {}
+  virtual ~IFood() noexcept = default;
 
   void Eat() const {
     std::cout << PrinterState::PlainText;
@@ -92,7 +92,7 @@ class FoodChickenWings : public IFood {
 /* Abstract factory */
 class IAbstractFactory {
  public:
-  virtual ~IAbstractFactory() {}
+  virtual ~IAbstractFactory() noexcept = default;
   virtual std::unique_ptr<IFood> CreateFood() const = 0;
   virtual std::unique_ptr<IBeverage> CreateBeverage() const = 0;
   virtual std::string GetName() const = 0;
@@ -148,7 +148,7 @@ class Pattern : public IPattern {
  private:
   enum class Restaurant { Ramen, Sushi, KFC };
 
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout << PrinterState::PlainText
               << "It's dinner time. I'm so hungry. I don't know what exactly "
               << "I want to eat. I'm just going to visit a restaurant and "
@@ -158,7 +158,7 @@ class Pattern : public IPattern {
     VisitRestaurant(Restaurant::Ramen);
   }
 
-  void VisitRestaurant(Restaurant restaurant) {
+  void VisitRestaurant(Restaurant restaurant) const {
     std::unique_ptr<IAbstractFactory> factory =
         GetRestaurantFactory(restaurant);
 
@@ -177,7 +177,7 @@ class Pattern : public IPattern {
 
   /* Returns a factory */
   std::unique_ptr<IAbstractFactory> GetRestaurantFactory(
-      Restaurant restaurant) {
+      Restaurant restaurant) const {
     switch (restaurant) {
       case Restaurant::Ramen:
         return std::make_unique<RamenRestaurant>();

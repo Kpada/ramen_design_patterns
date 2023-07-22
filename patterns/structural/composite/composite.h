@@ -16,7 +16,7 @@ namespace Composite {
 class Component {
  public:
   explicit Component(std::string name) : Component(std::move(name), 0) {}
-  virtual ~Component() {}
+  virtual ~Component() noexcept = default;
 
   /* this is the main method, must be overridden */
   virtual int GetPrice() const = 0;
@@ -88,7 +88,7 @@ class Pattern : public IPattern {
    *                                                         /       \
    *                                                   mochi (350)  coffe (250)
    */
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout << PrinterState::Quote
               << "We're going to visit a restauran. When we finish dinner, we "
               << "have to pay the check. But how do we calculate who spent how "

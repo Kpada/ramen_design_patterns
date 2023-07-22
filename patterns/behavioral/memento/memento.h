@@ -17,7 +17,7 @@ namespace Memento {
 /* Memento Interface */
 class IMemento {
  public:
-  virtual ~IMemento() {}
+  virtual ~IMemento() noexcept = default;
   virtual std::string GetMeta() const = 0;
   virtual std::string GetDate() const = 0;
   virtual std::string GetState() const = 0;
@@ -131,7 +131,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Memento") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout
         << PrinterState::Quote
         << "I'm a chef in a ramen restaurant. I want to make "

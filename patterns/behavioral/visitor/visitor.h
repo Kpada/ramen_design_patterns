@@ -19,7 +19,7 @@ class SushiRestaurant;
  */
 class IVisitor {
  public:
-  virtual ~IVisitor() {}
+  virtual ~IVisitor() noexcept = default;
   virtual void VisitRamenRestaurant(const RamenRestaurant&) const = 0;
   virtual void VisitSushiRestaurant(const SushiRestaurant&) const = 0;
 };
@@ -29,7 +29,7 @@ class IVisitor {
  */
 class IComponent {
  public:
-  virtual ~IComponent() {}
+  virtual ~IComponent() noexcept = default;
   virtual void Accept(const IVisitor&) const = 0;
 };
 
@@ -105,7 +105,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Visitor") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout << PrinterState::Quote
               << "Each restaurant visitor has his own food preferences. "
               << "For example, on Thursday I just want to have lunch, and "

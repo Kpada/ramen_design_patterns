@@ -15,7 +15,7 @@ namespace TemplateMethod {
  */
 class Dinner {
  public:
-  virtual ~Dinner() {}
+  virtual ~Dinner() noexcept = default;
 
   /* Template Method */
   void HaveDinner() {
@@ -94,7 +94,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Template Method") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout << PrinterState::Quote
               << "Eating dinner consists of the same steps. However, depending "
               << "on the dish or restaurant, the implementation of these steps "

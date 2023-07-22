@@ -23,7 +23,7 @@ namespace Bridge {
 /* Implementation */
 class INoodles {
  public:
-  virtual ~INoodles() {}
+  virtual ~INoodles() noexcept = default;
   virtual std::string EatNoodles() const = 0;
 };
 
@@ -45,7 +45,7 @@ class IMeal {
   explicit IMeal(std::unique_ptr<INoodles> noodles)
       : m_noodles(std::move(noodles)) {}
 
-  virtual ~IMeal() {}
+  virtual ~IMeal() noexcept = default;
   virtual void Eat() const = 0;
 
  protected:
@@ -86,7 +86,7 @@ class Pattern : public IPattern {
   using MealVector = std::vector<std::unique_ptr<IMeal>>;
   using Iterator = MealVector::const_iterator;
 
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     /* create meals */
     MealVector meals;
     meals.push_back(std::make_unique<Lunch>(std::make_unique<Udon>()));

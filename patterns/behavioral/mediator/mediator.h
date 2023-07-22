@@ -40,7 +40,7 @@ std::ostream& operator<<(std::ostream& os, Meal meal) {
 /* Mediator Interface */
 class IMediator {
  public:
-  virtual ~IMediator() {}
+  virtual ~IMediator() noexcept = default;
   virtual void Notify(const Restaurant*, Meal) = 0;
 };
 
@@ -49,7 +49,7 @@ class Restaurant {
  public:
   explicit Restaurant(std::string name) : m_name(std::move(name)) {}
 
-  virtual ~Restaurant() {}
+  virtual ~Restaurant() noexcept = default;
 
   void SetMediator(std::shared_ptr<IMediator> mediator) {
     m_mediator = std::move(mediator);
@@ -146,7 +146,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Mediator") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout
         << PrinterState::Quote
         << "We want to notify every restaurant when someone has ordered a "

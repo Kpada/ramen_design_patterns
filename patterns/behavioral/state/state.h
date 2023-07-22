@@ -15,7 +15,7 @@ class Context;
 /* State Interface */
 class IState {
  public:
-  virtual ~IState() {}
+  virtual ~IState() noexcept = default;
   virtual void Cook(Context& context) = 0;
 };
 
@@ -91,7 +91,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("State") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout << PrinterState::Quote << "There is a promo in our restaurant. "
               << "We give you free gyoza after every "
               << StateRamen::GetBonusGyozaThreshold() << " ramen orders\n";

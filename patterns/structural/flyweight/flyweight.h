@@ -198,7 +198,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Flyweight") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout
         << PrinterState::Quote
         << "We are going to develop an app for ramen lovers. We will map "
@@ -229,7 +229,7 @@ class Pattern : public IPattern {
     factory.PrintFlyWeights();
   }
 
-  static inline FlyWeightFactory CreateFactory() {
+  static FlyWeightFactory CreateFactory() {
     /* we're going to use an existing map, so it's not empty */
     return FlyWeightFactory{
         {"Russia", "Moscow", "103132", "The Kremlin"},
@@ -239,7 +239,7 @@ class Pattern : public IPattern {
   }
 
   void AddRestaurantToGoogleMap(FlyWeightFactory& factory,
-                                const RestaurantInfo& info) {
+                                const RestaurantInfo& info) const {
     std::cout << PrinterState::PlainText
               << "Adding a restaurant to the map...\n";
 

@@ -15,7 +15,7 @@ class Context;
 /* Strategy Interface */
 class IStrategy {
  public:
-  virtual ~IStrategy() {}
+  virtual ~IStrategy() noexcept = default;
   virtual void Cook() const = 0;
 };
 
@@ -67,7 +67,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Strategy") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout << PrinterState::Quote
               << "Each dish has a different cooking strategy. "
               << "But there is only one way to order a dish.\n\n";

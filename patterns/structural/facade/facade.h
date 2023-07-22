@@ -16,8 +16,8 @@ class Menu {
  public:
   using Items = std::set<std::string>;
 
-  explicit Menu(const Items& menu) : m_menu(menu) {}
-  Menu() {}
+  explicit Menu(Items menu) : m_menu(std::move(menu)) {}
+  Menu() noexcept = default;
 
   void Add(const std::string& item) { m_menu.insert(item); }
 
@@ -55,7 +55,8 @@ class Ticket {
 /* Subsystem 3: Vending Machine */
 class VendingMachine {
  public:
-  explicit VendingMachine(std::shared_ptr<Menu> menu) : m_menu(menu) {}
+  explicit VendingMachine(std::shared_ptr<Menu> menu)
+      : m_menu(std::move(menu)) {}
 
   void InsertMoney() {
     if (!m_money) {
@@ -136,7 +137,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Facade") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout << PrinterState::Quote
               << "Ordering at a ramen restaurant is not easy. "
               << "They usually use vending machines, so you have to: "

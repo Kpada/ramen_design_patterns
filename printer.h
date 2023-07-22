@@ -11,6 +11,12 @@ enum class PrinterState { PlainText, Quote, Title };
  */
 class Printer {
  public:
+  /* delete copy/move */
+  Printer(const Printer&) = delete;
+  Printer& operator=(const Printer&) = delete;
+  Printer(Printer&&) = delete;
+  Printer& operator=(Printer&&) = delete;
+
   static Printer& GetInstance() {
     static Printer printer;
     return printer;
@@ -38,13 +44,7 @@ class Printer {
 
  private:
   /* hide the costructor */
-  Printer() {}
-
-  /* delete copy/move */
-  Printer(const Printer&) = delete;
-  Printer& operator=(const Printer&) = delete;
-  Printer(Printer&&) = delete;
-  Printer& operator=(Printer&&) = delete;
+  Printer() noexcept = default;
 
   inline void SetStatePlainText(std::ostream& os, PrinterState curState) const {
     switch (curState) {

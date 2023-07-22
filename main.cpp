@@ -27,16 +27,17 @@
 #include "patterns/structural/proxy/proxy.h"
 #include "printer.h"
 
-static void execute() {
-  std::vector<std::unique_ptr<IPattern>> patterns;
+namespace {
 
-  /* creational */
+void AddCreational(std::vector<std::unique_ptr<IPattern>>& patterns) {
   patterns.push_back(std::make_unique<FactoryMethod::Pattern>());
   patterns.push_back(std::make_unique<AbtractFactory::Pattern>());
   patterns.push_back(std::make_unique<Builder::Pattern>());
   patterns.push_back(std::make_unique<Prototype::Pattern>());
   patterns.push_back(std::make_unique<Singleton::Pattern>());
-  /* structural */
+}
+
+void AddStructural(std::vector<std::unique_ptr<IPattern>>& patterns) {
   patterns.push_back(std::make_unique<Adapter::Pattern>());
   patterns.push_back(std::make_unique<Bridge::Pattern>());
   patterns.push_back(std::make_unique<Decorator::Pattern>());
@@ -44,7 +45,9 @@ static void execute() {
   patterns.push_back(std::make_unique<Proxy::Pattern>());
   patterns.push_back(std::make_unique<Flyweight::Pattern>());
   patterns.push_back(std::make_unique<Composite::Pattern>());
-  /* behavioral */
+}
+
+void AddBehavioral(std::vector<std::unique_ptr<IPattern>>& patterns) {
   patterns.push_back(std::make_unique<ChainOfResponsibility::Pattern>());
   patterns.push_back(std::make_unique<Command::Pattern>());
   patterns.push_back(std::make_unique<Mediator::Pattern>());
@@ -54,17 +57,30 @@ static void execute() {
   patterns.push_back(std::make_unique<TemplateMethod::Pattern>());
   patterns.push_back(std::make_unique<Visitor::Pattern>());
   patterns.push_back(std::make_unique<Observer::Pattern>());
+}
+
+void Execute() {
+  std::vector<std::unique_ptr<IPattern>> patterns;
+
+  AddCreational(patterns);
+  AddStructural(patterns);
+  AddBehavioral(patterns);
 
   for (const auto& item : patterns) {
     item->Execute();
   }
 }
 
+}  // namespace
+
 int main() {
   try {
-    execute();
-  } catch (std::exception& ex) {
+    Execute();
+  } catch (const std::exception& ex) {
     std::cout << std::endl << ex.what() << std::endl;
+  } catch (...) {
+    std::cout << std::endl << "Unknown exception" << std::endl;
   }
+
   return 0;
 }

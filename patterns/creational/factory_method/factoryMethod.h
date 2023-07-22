@@ -94,7 +94,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Factory Method") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout
         << PrinterState::PlainText
         << "It's dinner time. I'm so hungry. I don't know what exactly "
@@ -109,7 +109,7 @@ class Pattern : public IPattern {
   }
 
  private:
-  void VisitRestaurant(std::unique_ptr<IRestaurant> restaurant) {
+  void VisitRestaurant(std::unique_ptr<IRestaurant> restaurant) const {
     if (!restaurant) {
       throw std::runtime_error("");
     }
@@ -125,7 +125,7 @@ class Pattern : public IPattern {
   }
 
   /* Returns a random factory (restaurant) */
-  std::unique_ptr<IRestaurant> GetRandomRestaurant() {
+  std::unique_ptr<IRestaurant> GetRandomRestaurant() const {
     const unsigned int numOfRestaurants = 3;
 
     std::random_device rd;

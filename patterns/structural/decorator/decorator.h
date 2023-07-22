@@ -14,7 +14,7 @@ namespace Decorator {
 /* Food interface */
 class IFood {
  public:
-  virtual ~IFood() {}
+  virtual ~IFood() noexcept = default;
 
   virtual int GetPrice() const = 0;
   virtual std::string GetDescription() const = 0;
@@ -32,7 +32,7 @@ class Ramen : public IFood {
 class IDecorator : public IFood {
  public:
   explicit IDecorator(std::shared_ptr<IFood> component)
-      : m_component(component) {}
+      : m_component(std::move(component)) {}
 
   int GetPrice() const override { return this->getComponent().GetPrice(); }
 
@@ -83,7 +83,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Decorator") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     /* create ramen with no decorators */
     std::shared_ptr<IFood> ramen = std::make_shared<Ramen>();
 
@@ -112,7 +112,7 @@ class Pattern : public IPattern {
   }
 
   void PrintFoodDescriptionAndPrice(std::shared_ptr<IFood> food,
-                                    const std::string& title) {
+                                    const std::string& title) const {
     std::cout << PrinterState::PlainText << title << ": "
               << food->GetDescription() << ", price = " << food->GetPrice()
               << std::endl;

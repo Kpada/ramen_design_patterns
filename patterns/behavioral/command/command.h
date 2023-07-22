@@ -26,7 +26,7 @@ class ReceiverChef {
 /* Command Interface */
 class ICommand {
  public:
-  virtual ~ICommand() {}
+  virtual ~ICommand() noexcept = default;
   virtual void Execute() const = 0;
   virtual void Undo() const = 0;
 };
@@ -108,7 +108,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Command") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout << PrinterState::Quote << "We're visiting a ramen restaurant. "
               << "We're going to order 2 bowls or ramen\n";
 

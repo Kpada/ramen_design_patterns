@@ -49,7 +49,7 @@ class IFood {
  public:
   explicit IFood(std::string name) : m_name(move(name)) {}
 
-  virtual ~IFood() {}
+  virtual ~IFood() noexcept = default;
 
   virtual std::unique_ptr<IFood> Clone() const = 0;
 
@@ -71,7 +71,7 @@ class Ramen : public IFood {
               << GetInfo() << std::endl;
   }
 
-  ~Ramen() {
+  ~Ramen() override {
     std::cout << PrinterState::PlainText << GetName() << " destroyed. "
               << GetInfo() << std::endl;
   }
@@ -117,7 +117,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Prototype") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     const std::string ramenName = "Miso Ramen";
 
     /* create */

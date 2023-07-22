@@ -60,7 +60,7 @@ std::ostream& operator<<(std::ostream& os, const Gyoza& gyoza) {
 /* This is a big class with a lot of possible constructor arguments */
 class Ramen {
  public:
-  Ramen() {}
+  Ramen() noexcept = default;
 
   Ramen& SetType(RamenType type) {
     m_type = type;
@@ -113,7 +113,7 @@ class Ramen {
 /* Builder Interface */
 class IBuilder {
  public:
-  virtual ~IBuilder() {}
+  virtual ~IBuilder() noexcept = default;
 
   Ramen GetRamen() { return ramen; }
 
@@ -196,7 +196,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Builder") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout
         << PrinterState::PlainText
         << "It's dinner time. I'm so hungry. I'm going to visit my favorite "

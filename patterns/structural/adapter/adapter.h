@@ -13,7 +13,7 @@ namespace Adapter {
 /* Interface */
 class IMealChopsticks {
  public:
-  virtual ~IMealChopsticks() {}
+  virtual ~IMealChopsticks() noexcept = default;
   virtual void Eat() const = 0;
   virtual void TakeChopsticks() = 0;
 
@@ -24,7 +24,7 @@ class IMealChopsticks {
 /* Interface */
 class IMealFork {
  public:
-  virtual ~IMealFork() {}
+  virtual ~IMealFork() noexcept = default;
   virtual void Eat() const = 0;
   virtual void TakeFork() = 0;
 
@@ -87,7 +87,7 @@ class Pattern : public IPattern {
   Pattern() : IPattern("Adapter") {}
 
  private:
-  void BusinessLogic() final {
+  void BusinessLogic() const final {
     std::cout << PrinterState::Quote
               << "I'm going to eat a sausage using a fork\n";
     std::shared_ptr<IMealFork> sausage = std::make_shared<Sausage>();

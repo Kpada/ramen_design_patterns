@@ -1,6 +1,6 @@
 {
-    "files.associations": {
-        "exception": "cpp",
-        "iostream": "cpp"
-    }
+    "[cpp]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
 }
