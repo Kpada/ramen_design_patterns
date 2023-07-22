@@ -2,8 +2,8 @@
 #define __MEDIATOR_H__
 
 #include <iostream>
-#include <string>
 #include <memory>
+#include <string>
 
 #include "../../iPattern.h"
 
@@ -14,171 +14,161 @@ class Restaurant;
 
 /* Supported meals */
 enum class Meal {
-    MisoRamen,
-    TonkotsuRamen,
-    Udon,
+  MisoRamen,
+  TonkotsuRamen,
+  Udon,
 };
 
-std::ostream& operator << (std::ostream& os, Meal meal) {
-    switch(meal) {
+std::ostream& operator<<(std::ostream& os, Meal meal) {
+  switch (meal) {
     case Meal::MisoRamen:
-        os << "Miso Ramen";
-        break;
+      os << "Miso Ramen";
+      break;
     case Meal::TonkotsuRamen:
-        os << "Tonkotsu Ramen";
-        break;
+      os << "Tonkotsu Ramen";
+      break;
     case Meal::Udon:
-        os << "Udon";
-        break;
+      os << "Udon";
+      break;
     default:
-        break;
-    }
+      break;
+  }
 
-    return os;
+  return os;
 }
 
 /* Mediator Interface */
 class IMediator {
-public:
-    virtual ~IMediator() {}
-    virtual void Notify(const Restaurant* , Meal) = 0;
+ public:
+  virtual ~IMediator() {}
+  virtual void Notify(const Restaurant*, Meal) = 0;
 };
 
 /* Restaurant base class */
 class Restaurant {
-public:
-    explicit Restaurant(std::string name) : m_name(std::move(name)) {}
+ public:
+  explicit Restaurant(std::string name) : m_name(std::move(name)) {}
 
-    virtual ~Restaurant() {}
+  virtual ~Restaurant() {}
 
-    void SetMediator(std::shared_ptr<IMediator> mediator) {
-        m_mediator = std::move(mediator);
-    }
+  void SetMediator(std::shared_ptr<IMediator> mediator) {
+    m_mediator = std::move(mediator);
+  }
 
-protected:
-    const std::string m_name;
-    std::shared_ptr<IMediator> m_mediator;
+ protected:
+  const std::string m_name;
+  std::shared_ptr<IMediator> m_mediator;
 };
 
 /* Conctere restaurant 1 : Ramen */
 class RamenRestaurant : public Restaurant {
-public:
-    RamenRestaurant() : Restaurant("Ramen Restaurant") {}
+ public:
+  RamenRestaurant() : Restaurant("Ramen Restaurant") {}
 
-    void OrderMisoRamen() {
-        std::cout <<
-            PrinterState::PlainText <<
-            "Miso Ramen ordered from " << m_name << '\n';
+  void OrderMisoRamen() {
+    std::cout << PrinterState::PlainText << "Miso Ramen ordered from " << m_name
+              << '\n';
 
-        m_mediator->Notify(this, Meal::MisoRamen);
-    }
+    m_mediator->Notify(this, Meal::MisoRamen);
+  }
 
-    void OrderTonkotsuRamen() {
-        std::cout <<
-            PrinterState::PlainText <<
-            "Tonkotsu Ramen ordered from " << m_name << '\n';
-        m_mediator->Notify(this, Meal::TonkotsuRamen);
-    }
+  void OrderTonkotsuRamen() {
+    std::cout << PrinterState::PlainText << "Tonkotsu Ramen ordered from "
+              << m_name << '\n';
+    m_mediator->Notify(this, Meal::TonkotsuRamen);
+  }
 
-    /* The Ramen restaurant buys advertising.
-     * The mediator will send a notification that someone has ordered another meal.
-     * They should spend more money on ad.
-     */
-    void SuggestToIncreaseRamenAdvertisingBudget() {
-        std::cout <<
-            PrinterState::PlainText <<
-            m_name << ": we should increase the ad budget.";
-    }
+  /* The Ramen restaurant buys advertising.
+   * The mediator will send a notification that someone has ordered another
+   * meal. They should spend more money on ad.
+   */
+  void SuggestToIncreaseRamenAdvertisingBudget() {
+    std::cout << PrinterState::PlainText << m_name
+              << ": we should increase the ad budget.";
+  }
 };
 
 /* Conctere restaurant 2 : Udon */
 class UdonRestaurant : public Restaurant {
-public:
-    UdonRestaurant() : Restaurant("Udon Restaurant") {}
+ public:
+  UdonRestaurant() : Restaurant("Udon Restaurant") {}
 
-    /* The Udon restaurant buys advertising.
-     * The mediator will send a notification that someone has ordered another meal.
-     * They should spend more money on ad.
-     */
-    void SuggestToIncreaseUdonAdvertisingBudget() const {
-        std::cout <<
-            PrinterState::PlainText <<
-            m_name << ": we should increase the ad budget.";
-    }
+  /* The Udon restaurant buys advertising.
+   * The mediator will send a notification that someone has ordered another
+   * meal. They should spend more money on ad.
+   */
+  void SuggestToIncreaseUdonAdvertisingBudget() const {
+    std::cout << PrinterState::PlainText << m_name
+              << ": we should increase the ad budget.";
+  }
 
-    void OrderUdon() {
-        std::cout <<
-            PrinterState::PlainText <<
-            "Udon ordered from " << m_name << '\n';
-        m_mediator->Notify(this, Meal::Udon);
-    }
+  void OrderUdon() {
+    std::cout << PrinterState::PlainText << "Udon ordered from " << m_name
+              << '\n';
+    m_mediator->Notify(this, Meal::Udon);
+  }
 };
 
 /* Concrete mediator */
 class AdAgencyMediator : public IMediator {
-public:
-    AdAgencyMediator(std::shared_ptr<RamenRestaurant> ramen,
-                     std::shared_ptr<UdonRestaurant> udon)
-    : m_ramen(std::move(ramen))
-    , m_udon(std::move(udon))
-    {}
+ public:
+  AdAgencyMediator(std::shared_ptr<RamenRestaurant> ramen,
+                   std::shared_ptr<UdonRestaurant> udon)
+      : m_ramen(std::move(ramen)), m_udon(std::move(udon)) {}
 
-    void Notify(const Restaurant* rest, Meal meal) override {
-        std::cout <<
-            PrinterState::PlainText <<
-            "Mediator notified that someone ordered " << meal << '\n';
+  void Notify(const Restaurant* rest, Meal meal) override {
+    std::cout << PrinterState::PlainText
+              << "Mediator notified that someone ordered " << meal << '\n';
 
-        if (rest != m_ramen.get()) {
-            std::cout <<
-                PrinterState::PlainText <<
-                "Mediator is notifying the Ramen restaurant that they're " <<
-                "losing clients...\n";
-            m_ramen->SuggestToIncreaseRamenAdvertisingBudget();
-        }
-
-        if (rest != m_udon.get()) {
-            std::cout <<
-                PrinterState::PlainText <<
-                "Mediator is notifying the Udon restaurant that they're  " <<
-                "losing clients...\n";
-            m_udon->SuggestToIncreaseUdonAdvertisingBudget();
-        }
+    if (rest != m_ramen.get()) {
+      std::cout << PrinterState::PlainText
+                << "Mediator is notifying the Ramen restaurant that they're "
+                << "losing clients...\n";
+      m_ramen->SuggestToIncreaseRamenAdvertisingBudget();
     }
 
-private:
-    std::shared_ptr<RamenRestaurant> m_ramen;
-    std::shared_ptr<UdonRestaurant>  m_udon;
+    if (rest != m_udon.get()) {
+      std::cout << PrinterState::PlainText
+                << "Mediator is notifying the Udon restaurant that they're  "
+                << "losing clients...\n";
+      m_udon->SuggestToIncreaseUdonAdvertisingBudget();
+    }
+  }
+
+ private:
+  std::shared_ptr<RamenRestaurant> m_ramen;
+  std::shared_ptr<UdonRestaurant> m_udon;
 };
 
 /* Mediator */
 class Pattern : public IPattern {
-public:
-    Pattern() : IPattern("Mediator") {}
+ public:
+  Pattern() : IPattern("Mediator") {}
 
-private:
-    void BusinessLogic() final {
-        std::cout <<
-        PrinterState::Quote <<
-        "We want to notify every restaurant when someone has ordered a meal. " <<
-        "If the restaurant sees others' orders, they will increase their " <<
-        "advertising budget and we will get more money :)\n";
+ private:
+  void BusinessLogic() final {
+    std::cout
+        << PrinterState::Quote
+        << "We want to notify every restaurant when someone has ordered a "
+           "meal. "
+        << "If the restaurant sees others' orders, they will increase their "
+        << "advertising budget and we will get more money :)\n";
 
-        /* create restaurants */
-        std::shared_ptr<RamenRestaurant> ramen =
-            std::make_shared<RamenRestaurant>();
-        std::shared_ptr<UdonRestaurant> udon =
-            std::make_shared<UdonRestaurant>();
-        /* mediator */
-        std::shared_ptr<AdAgencyMediator> mediator =
-            std::make_shared<AdAgencyMediator>(ramen, udon);
-        /* config */
-        ramen->SetMediator(mediator);
-        udon->SetMediator(mediator);
+    /* create restaurants */
+    std::shared_ptr<RamenRestaurant> ramen =
+        std::make_shared<RamenRestaurant>();
+    std::shared_ptr<UdonRestaurant> udon = std::make_shared<UdonRestaurant>();
+    /* mediator */
+    std::shared_ptr<AdAgencyMediator> mediator =
+        std::make_shared<AdAgencyMediator>(ramen, udon);
+    /* config */
+    ramen->SetMediator(mediator);
+    udon->SetMediator(mediator);
 
-        ramen->OrderMisoRamen();
-    }
+    ramen->OrderMisoRamen();
+  }
 };
 
-} /* namespace */
+}  // namespace Mediator
 
 #endif /* __MEDIATOR_H__*/
