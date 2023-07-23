@@ -31,7 +31,7 @@ namespace {
 
 void AddCreational(std::vector<std::unique_ptr<IPattern>>& patterns) {
   patterns.push_back(std::make_unique<FactoryMethod::Pattern>());
-  patterns.push_back(std::make_unique<AbtractFactory::Pattern>());
+  patterns.push_back(std::make_unique<AbstractFactory::Pattern>());
   patterns.push_back(std::make_unique<Builder::Pattern>());
   patterns.push_back(std::make_unique<Prototype::Pattern>());
   patterns.push_back(std::make_unique<Singleton::Pattern>());
